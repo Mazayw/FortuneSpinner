@@ -1,14 +1,10 @@
 import { useState } from 'react';
 import './App.css';
 import { prices } from './config/data';
-//const prices = [1, 2, 3, 5, 6, 7, 8];
+import { Circle } from './Circle';
+
 function App() {
 	const [degree, setDegree] = useState(0);
-
-	const randomColor = () =>
-		Math.floor(Math.random() * 16777215)
-			.toString(16)
-			.padStart(6, '0');
 
 	function getRandomValueWithProbability(pricesData: typeof prices) {
 		const random = Math.random();
@@ -19,7 +15,7 @@ function App() {
 				return { priceValue: price.value, cumulativeProbability };
 			}
 		}
-		//return 'No luck';
+		return { priceValue: prices[0].value, cumulativeProbability: 0 };
 	}
 
 	const rotate = () => {
@@ -43,18 +39,7 @@ function App() {
 					} as React.CSSProperties
 				}
 			>
-				{prices.map((el, index) => {
-					const color = randomColor();
-					const style = {
-						'--i': index,
-						'--clr': `#${color}`,
-					} as React.CSSProperties;
-					return (
-						<div className={`sector`} style={style} key={el.value}>
-							<span>{el.value}</span>
-						</div>
-					);
-				})}
+				<Circle />
 			</div>
 		</div>
 	);
